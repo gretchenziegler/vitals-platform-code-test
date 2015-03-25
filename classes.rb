@@ -10,7 +10,6 @@ class Normal
   def update
     @expires_in -= 1
     self.decrease_quality(1)
-
     self.decrease_quality(1) if @expires_in <= 0
   end
 
@@ -27,7 +26,6 @@ end
 class Distinction < Normal
 	
   def update
-
   end
 
 end
@@ -36,7 +34,6 @@ class Star < Normal
 	
   def update
     @expires_in -= 1
-		
     if @expires_in <= 0
       self.decrease_quality(4)
     else
@@ -49,8 +46,7 @@ end
 class Compare < Normal
 
   def update
-    @expires_in -= 1
-    
+    @expires_in -= 1  
     if @expires_in < 0
     	@quality = 0 
     elsif @expires_in < 5
@@ -60,7 +56,6 @@ class Compare < Normal
     else
       self.increase_quality(1)
     end 
-
   end
 
 end

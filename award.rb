@@ -3,7 +3,6 @@ class Award
   attr_accessor :item, :name
 
   def initialize(name, expires_in, quality)
-
     case name
     when "NORMAL ITEM"
       @item = Normal.new(expires_in, quality)
@@ -16,9 +15,7 @@ class Award
     when "Blue Star"
       @item = Star.new(expires_in, quality)
     end
-
     @name = name
-
   end
 
   def update_award
