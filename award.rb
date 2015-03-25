@@ -10,12 +10,9 @@ class Award
 
 	def normal_award
 		@expires_in -= 1
-		if @quality > 0
-			@quality -= 1
-		end
-		if @quality > 0 && @expires_in <= 0
-			@quality -=1
-		end
+		self.decrease_quality(1)
+
+		self.decrease_quality(1) if @expires_in <= 0
 	end
 
 	def blue_distinction_plus_award
@@ -24,37 +21,41 @@ class Award
 
 	def blue_first_award
 		@expires_in -= 1
-		if @expires_in <= 0 && @quality < 49
-			@quality += 2
-		elsif @quality < 50
-			@quality += 1
-		end
+		self.increase_quality(1)
+
+		self.increase_quality(1) if @expires_in <= 0 
 	end
 
 	def blue_compare_award
 		@expires_in -= 1
+    
     if @expires_in < 0
-      @quality = 0
-    elsif @quality < 48 && @expires_in < 5
-      @quality += 3
-    elsif @quality < 49 && @expires_in < 10
-      @quality += 2
-    elsif @quality < 50
-      @quality += 1
-    end
+    	@quality = 0 
+    elsif @expires_in < 5
+    	self.increase_quality(3) 
+    elsif @expires_in < 10
+      self.increase_quality(2)
+    else
+      self.increase_quality(1)
+    end   
 	end
 
 	def blue_star_award
 		@expires_in -= 1
-    if @expires_in <= 0 && @quality > 3
-      @quality -= 4
-    elsif @quality > 1
-      @quality -= 2
-    elsif @quality == 1
-      @quality -= 1
+		
+    if @expires_in <= 0
+      self.decrease_quality(4)
     else
-      @quality = 0
+      self.decrease_quality(2)
     end
+	end
+
+	def increase_quality(amount)
+		@quality = [50, @quality += amount].min
+	end
+
+	def decrease_quality(amount)
+		@quality = [0, @quality -= amount].max
 	end
 
 end
