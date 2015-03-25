@@ -3,15 +3,15 @@ class Normal
   attr_accessor :expires_in, :quality
 
   def initialize(expires_in, quality)
-	  @expires_in = expires_in
-	  @quality = quality
+    @expires_in = expires_in
+    @quality = quality
   end
 
   def update
     @expires_in -= 1
     self.decrease_quality(1)
 
- 	  self.decrease_quality(1) if @expires_in <= 0
+    self.decrease_quality(1) if @expires_in <= 0
   end
 
   def increase_quality(amount)
@@ -42,7 +42,7 @@ class Star < Normal
     else
       self.decrease_quality(2)
     end
-	end
+  end
 
 end
 
@@ -60,6 +60,7 @@ class Compare < Normal
     else
       self.increase_quality(1)
     end 
+
   end
 
 end
